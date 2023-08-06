@@ -1,0 +1,6 @@
+falcon
+peewee
+uvicorn
+python-engineio
+python-socketio
+psycopg2-binary
