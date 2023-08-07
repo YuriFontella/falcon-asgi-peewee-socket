@@ -1,6 +1,6 @@
 falcon
 peewee
-uvicorn
+uvicorn[standard]
 python-engineio
 python-socketio
 psycopg2-binary

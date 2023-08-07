@@ -10,7 +10,4 @@ RUN echo America/Sao_Paulo > /etc/timezone
 
 COPY . .
 
-ENV ENV=production
-
-CMD python3 config/migrations/main.py
-CMD uvicorn main:asgi --host 0.0.0.0 --port 6400 --workers 4 --log-level error --ssl-keyfile '' --ssl-certfile ''
+CMD pyhton3 main.py --env production

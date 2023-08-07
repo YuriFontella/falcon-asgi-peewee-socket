@@ -1,20 +1,26 @@
-import falcon.asgi, socketio
+import uvicorn, argparse, os
 
-from src.middlewares.auth import Auth
-from src.middlewares.pool import Pool
-from src.socket.server import socket
+parser = argparse.ArgumentParser()
+parser.add_argument('--env', required=True)
 
-from errors.storage import StorageError
+args = parser.parse_args()
 
-from src.controllers import  users
+os.environ['ENV'] = args.env
 
-app = falcon.asgi.App(middleware=[Pool(), Auth()])
+ssl_keyfile = None
+ssl_certfile = None
 
-users = users.UsersResource()
+if args.env == 'production':
+    ssl_keyfile = ''
+    ssl_certfile = ''
 
-app.add_route('/users', users)
-app.add_route('/users/{id}', users, suffix='user')
-
-app.add_error_handler(Exception, StorageError.handle)
-
-asgi = socketio.ASGIApp(socket, app)
+if __name__ == "__main__":
+    uvicorn.run(
+        app='app:asgi',
+        host='0.0.0.0',
+        workers=4 if args.env == 'production' else 1,
+        port=6400,
+        reload=args.env == 'development',
+        ssl_certfile=ssl_certfile,
+        ssl_keyfile=ssl_keyfile
+    )
