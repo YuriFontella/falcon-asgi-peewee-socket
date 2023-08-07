@@ -10,4 +10,4 @@ RUN echo America/Sao_Paulo > /etc/timezone
 
 COPY . .
 
-CMD pyhton3 main.py --env production
+CMD python3 main.py --env production
