@@ -1,4 +1,4 @@
-import uvicorn, argparse, os, multiprocessing
+import uvicorn, argparse, os
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--env', required=True)
@@ -23,7 +23,6 @@ if __name__ == "__main__":
         app='src.app:asgi',
         host='0.0.0.0',
         port=6400,
-        workers=int(multiprocessing.cpu_count() / 2) + 1,
         ssl_certfile=ssl_certfile,
         ssl_keyfile=ssl_keyfile,
 

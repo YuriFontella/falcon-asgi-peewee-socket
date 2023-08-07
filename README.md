@@ -3,5 +3,5 @@ pip install -r requirements.txt
 ```
 
 ```bash
-uvicorn main:asgi
+python3 main.py --env development
 ```
